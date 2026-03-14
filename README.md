@@ -1,61 +1,111 @@
-# Sampel Kode Redis dengan Golang - Clean Architecture
+# Redis Implementation with Golang
 
-Sampel kode Redis dengan Golang menggunakan prinsip Clean Architecture untuk pemisahan lapisan yang jelas.
+### redis-delonic
 
-## Struktur Proyek
+## Deskripsi
 
-```
-redis-delonic/
-├── domain/
-│   ├── entity/          # Domain entities (User)
-│   ├── repository/      # Repository interfaces
-│   └── usecase/         # Business logic
-├── infrastructure/      # External concerns (Redis implementation)
-├── interfaces/          # Interface adapters (CLI handler)
-├── main.go              # Application entry point
-├── go.mod
-└── README.md
-```
+Project ini merupakan contoh penggunaan **Redis dengan Golang** menggunakan pendekatan **Clean Architecture**.
+Aplikasi ini menunjukkan cara **menyimpan dan mengambil data user di Redis** menggunakan library Go Redis.
 
-## Lapisan Clean Architecture
+Redis digunakan sebagai **in-memory database** sehingga proses penyimpanan dan pengambilan data menjadi sangat cepat.
 
-- **Domain**: Entities, Use Cases, Repository Interfaces
-- **Infrastructure**: Implementasi konkrit (Redis client)
-- **Interfaces**: Adapters untuk interaksi eksternal (CLI)
+---
 
-## Persyaratan
-
-- Go 1.21 atau versi lebih baru
-- Redis server berjalan di localhost:6379
-
-## Instalasi
-
-1. Pastikan Go sudah terinstall.
-2. Clone atau download kode ini.
-3. Jalankan `go mod tidy`.
-
-## Menjalankan Kode
-
-1. Jalankan Redis server.
-2. Jalankan: `go run main.go`
-
-## Output yang Diharapkan
+## Library yang Digunakan
 
 ```
-User saved as string
-Retrieved user: ID=1, Name=John Doe, Age=30
-User saved as hash
-Retrieved user from hash: ID=1, Name=John Doe, Age=30
+github.com/redis/go-redis/v9
 ```
 
-## Penjelasan
+Contoh koneksi Redis:
 
-- **Entity**: Representasi data domain (User)
-- **Repository**: Interface untuk data access
-- **Usecase**: Business logic
-- **Infrastructure**: Implementasi Redis
-- **Interfaces**: Handler untuk CLI
+```
+rdb := redis.NewClient(&redis.Options{
+    Addr: "localhost:6379",
+})
+```
 
-## Dependencies
+---
 
-- `github.com/redis/go-redis/v9`: Redis client untuk Go
+## Struktur Project (Clean Architecture)
+
+```
+redis-delonic
+│
+├── main.go
+├── domain
+├── infrastructure
+├── interfaces
+└── tests
+```
+
+Penjelasan singkat:
+
+* **Domain** → entity dan business logic
+* **Infrastructure** → implementasi Redis repository
+* **Interfaces** → CLI handler
+* **Main** → dependency injection dan menjalankan aplikasi
+
+---
+
+## Cara Menjalankan
+
+1. Install Golang
+
+2. Jalankan Redis
+
+```
+docker run -d -p 6379:6379 redis
+```
+
+3. Install dependency
+
+```
+go mod tidy
+```
+
+4. Jalankan program
+
+```
+go run main.go
+```
+
+---
+
+## Unit Testing
+
+Menjalankan unit test:
+
+```
+go test ./... -v
+```
+
+Melihat test coverage:
+
+```
+go test ./... -cover
+```
+
+Target coverage minimal:
+
+```
+80%
+```
+
+---
+
+## Prompt AI yang Digunakan
+
+Prompt yang digunakan pada AI di VS Code:
+
+```
+Buatkan contoh implementasi Redis menggunakan Golang.
+```
+
+```
+Restrukturisasi kode menggunakan Clean Architecture.
+```
+
+```
+Buatkan unit testing dengan minimal 80% test coverage.
+```
